@@ -254,6 +254,9 @@ void HttpsUpgradesInterceptor::MaybeCreateLoader(
   // MaybeCreateLoader().
 
   // If there isn't a BrowserContext/Profile for this, then just allow it.
+
+    std::move(callback).Run({});
+    return;
   Profile* profile = Profile::FromBrowserContext(browser_context);
   if (!profile ||
       !g_browser_process->profile_manager()->IsValidProfile(profile)) {
