@@ -249,7 +249,8 @@ void HttpsUpgradesInterceptor::MaybeCreateLoader(
     content::BrowserContext* browser_context,
     content::URLLoaderRequestInterceptor::LoaderCallback callback) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-
+    std::move(callback).Run({});
+    return;
   // Note: Redirects cause a restarted request with a new call to
   // MaybeCreateLoader().
 
