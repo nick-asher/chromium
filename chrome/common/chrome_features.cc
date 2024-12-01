@@ -622,7 +622,7 @@ BASE_FEATURE(kHideWebAppOriginText,
 // HTTP when HTTPS can't be reasonably expected.
 BASE_FEATURE(kHttpsFirstBalancedMode,
              "HttpsFirstBalancedMode",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Automatically enables HTTPS-First Mode in a balanced configuration when
 // possible.
@@ -638,12 +638,12 @@ BASE_FEATURE(kHttpsFirstDialogUi,
 // Enables the new interstitial UI for HTTPS-First Mode.
 BASE_FEATURE(kHttpsFirstModeInterstitialAugust2024Refresh,
              "HttpsFirstModeInterstitialAugust2024Refresh",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Kill switch for crbug.com/1414633.
 BASE_FEATURE(kHttpsFirstModeForAdvancedProtectionUsers,
              "HttpsOnlyModeForAdvancedProtectionUsers",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Enables HTTPS-First Mode for engaged sites. No-op if HttpsFirstModeV2 or
 // HTTPS-Upgrades is disabled.
@@ -658,14 +658,14 @@ BASE_FEATURE(kHttpsFirstModeV2ForTypicallySecureUsers,
              base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Enables automatically upgrading main frame navigations to HTTPS.
-BASE_FEATURE(kHttpsUpgrades, "HttpsUpgrades", base::FEATURE_ENABLED_BY_DEFAULT);
+BASE_FEATURE(kHttpsUpgrades, "HttpsUpgrades", base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Enables HTTPS-First Mode by default in Incognito Mode. (The related feature
 // kHttpsFirstModeIncognitoNewSettings controls whether new settings controls
 // are available for opting out of this default behavior.)
 BASE_FEATURE(kHttpsFirstModeIncognito,
              "HttpsFirstModeIncognito",
-             base::FEATURE_ENABLED_BY_DEFAULT);
+             base::FEATURE_DISABLED_BY_DEFAULT);
 
 // Changes the binary opt-in to HTTPS-First Mode with a tri-state setting (HFM
 // everywhere, HFM in Incognito, or no HFM) with HFM-in-Incognito the new
