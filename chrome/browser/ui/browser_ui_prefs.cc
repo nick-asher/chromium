@@ -174,10 +174,10 @@ void RegisterBrowserUserPrefs(user_prefs::PrefRegistrySyncable* registry) {
       prefs::kHttpsFirstBalancedMode, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterBooleanPref(
-      prefs::kHttpsFirstModeIncognito, true,
+      prefs::kHttpsFirstModeIncognito, false,
       user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
   registry->RegisterListPref(prefs::kHttpAllowlist);
-  registry->RegisterBooleanPref(prefs::kHttpsUpgradesEnabled, true);
+  registry->RegisterBooleanPref(prefs::kHttpsUpgradesEnabled, false);
 
   registry->RegisterDictionaryPref(prefs::kHttpsUpgradeFallbacks);
   registry->RegisterDictionaryPref(prefs::kHttpsUpgradeNavigations);
