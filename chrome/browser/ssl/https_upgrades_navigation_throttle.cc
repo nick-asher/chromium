@@ -46,6 +46,8 @@ HttpsUpgradesNavigationThrottle::MaybeCreateThrottleFor(
     Profile* profile) {
   DCHECK_CURRENTLY_ON(content::BrowserThread::UI);
 
+    return nullptr;
+
   // HTTPS-First Mode is only relevant for primary main-frame HTTP(S)
   // navigations.
   if (!handle->GetURL().SchemeIsHTTPOrHTTPS() ||
