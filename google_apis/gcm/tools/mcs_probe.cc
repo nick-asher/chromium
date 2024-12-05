@@ -398,24 +398,6 @@ void MCSProbe::RequestProxyResolvingSocketFactory(
 }
 
 void MCSProbe::CheckIn() {
-  LOG(INFO) << "Check-in request initiated.";
-  checkin_proto::ChromeBuildProto chrome_build_proto;
-  chrome_build_proto.set_platform(
-      checkin_proto::ChromeBuildProto::PLATFORM_LINUX);
-  chrome_build_proto.set_channel(
-      checkin_proto::ChromeBuildProto::CHANNEL_CANARY);
-  chrome_build_proto.set_chrome_version(kChromeVersion);
-
-  CheckinRequest::RequestInfo request_info(0, 0,
-                                           std::map<std::string, std::string>(),
-                                           std::string(), chrome_build_proto);
-
-  checkin_request_ = std::make_unique<CheckinRequest>(
-      GServicesSettings().GetCheckinURL(), request_info, kDefaultBackoffPolicy,
-      base::BindOnce(&MCSProbe::OnCheckInCompleted, base::Unretained(this)),
-      shared_url_loader_factory_,
-      base::SingleThreadTaskRunner::GetCurrentDefault(), &recorder_);
-  checkin_request_->Start();
 }
 
 void MCSProbe::OnCheckInCompleted(
