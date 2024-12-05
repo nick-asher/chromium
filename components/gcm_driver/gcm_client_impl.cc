@@ -652,29 +652,6 @@ void GCMClientImpl::RemoveHeartbeatInterval(const std::string& scope) {
 }
 
 void GCMClientImpl::StartCheckin() {
-  DCHECK(io_task_runner_->RunsTasksInCurrentSequence());
-
-  // Make sure no checkin is in progress.
-  if (checkin_request_)
-    return;
-
-  checkin_proto::ChromeBuildProto chrome_build_proto;
-  ToCheckinProtoVersion(chrome_build_info_, &chrome_build_proto);
-
-  std::map<std::string, std::string> empty_account_tokens;
-
-  CheckinRequest::RequestInfo request_info(
-      device_checkin_info_.android_id, device_checkin_info_.secret,
-      empty_account_tokens, gservices_settings_.digest(), chrome_build_proto);
-  checkin_request_ = std::make_unique<CheckinRequest>(
-      gservices_settings_.GetCheckinURL(), request_info, GetGCMBackoffPolicy(),
-      base::BindOnce(&GCMClientImpl::OnCheckinCompleted,
-                     weak_ptr_factory_.GetWeakPtr()),
-      url_loader_factory_, io_task_runner_, &recorder_);
-  // Taking a snapshot of the accounts count here, as there might be an asynch
-  // update of the account tokens while checkin is in progress.
-  device_checkin_info_.SnapshotCheckinAccounts();
-  checkin_request_->Start();
 }
 
 void GCMClientImpl::OnCheckinCompleted(
