@@ -23,6 +23,8 @@
 #include "content/public/app/content_main.h"
 #include "content/public/common/content_switches.h"
 #include "partition_alloc/buildflags.h"
+#include "headless/public/headless_shell.h"
+#include "headless/public/switches.h"
 
 #if BUILDFLAG(IS_MAC)
 #include "chrome/app/chrome_main_mac.h"
@@ -68,6 +70,14 @@ void ShowOldHeadlessInfoMaybe(const base::CommandLine* command_line) {
   if (!command_line->GetSwitchValueASCII(::switches::kProcessType).empty()) {
     return;
   }
+
+    constexpr char kChromeDisableOldHeadlessWarning[] =
+      "CHROME_DISABLE_OLD_HEADLESS_WARNING";
+  std::unique_ptr<base::Environment> env(base::Environment::Create());
+  if (env->HasVar(kChromeDisableOldHeadlessWarning)) {
+    return;
+  }
+
 
   std::cerr
       << "Old Headless mode has been removed from the Chrome binary. "
@@ -206,8 +216,11 @@ int ChromeMain(int argc, const char** argv) {
   } else {
 #ifdef ENABLE_OLD_HEADLESS_INFO
     if (headless::IsOldHeadlessMode()) {
-      ShowOldHeadlessInfoMaybe(command_line);
-      return EXIT_FAILURE;
+      ShowOldHeadlessWarningMaybe(command_line);
+#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
+      command_line->AppendSwitch(::headless::switches::kEnableCrashReporter);
+#endif
+      return headless::HeadlessShellMain(std::move(params));
     }
 #endif  // ENABLE_OLD_HEADLESS_INFO
   }
